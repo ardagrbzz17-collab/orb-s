@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ORB'S | Marka Sunumu</title>
+  <style>
+    :root {
+      --mint: #51D4C9;
+      --sage: #6C7D54;
+      --coffee: #423227;
+      --wine: #38201D;
+      --brick: #70332E;
+      --coral: #AD473F;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--wine);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(56, 32, 29, 0.84);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .nav-links a:hover {
+      color: var(--mint);
+    }
+
+    section {
+      padding: 110px 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding-top: 140px;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(81, 212, 201, 0.38), transparent 34%),
+        radial-gradient(circle at 15% 75%, rgba(173, 71, 63, 0.42), transparent 35%),
+        var(--wine);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 70px 70px;
+      opacity: 0.5;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 10px 16px;
+      border: 1px solid rgba(81, 212, 201, 0.35);
+      border-radius: 999px;
+      background: rgba(66, 50, 39, 0.7);
+      color: var(--mint);
+      font-size: 14px;
+      margin-bottom: 28px;
+      font-weight: 700;
+    }
+
+    .eyebrow {
+      color: var(--mint);
+      font-weight: 900;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: clamp(72px, 12vw, 138px);
+      line-height: 0.85;
+      letter-spacing: -7px;
+      font-weight: 950;
+    }
+
+    h1 span {
+      color: var(--mint);
+    }
+
+    .hero p {
+      margin-top: 28px;
+      font-size: clamp(19px, 2vw, 26px);
+      line-height: 1.55;
+      color: rgba(255,255,255,0.78);
+      max-width: 680px;
+    }
+
+    .buttons {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 16px 24px;
+      border-radius: 18px;
+      font-weight: 900;
+      transition: 0.25s;
+    }
+
+    .btn-primary {
+      background: var(--mint);
+      color: var(--wine);
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+    }
+
+    .orb-card {
+      position: relative;
+      padding: 32px;
+      border-radius: 36px;
+      background: rgba(66, 50, 39, 0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.35);
+      width: 100%;
+      max-width: 560px;
+      margin-left: auto;
+    }
+
+    .orb-ball {
+      aspect-ratio: 1 / 1;
+      border-radius: 32px;
+      background: linear-gradient(135deg, var(--mint), var(--sage) 45%, var(--coral));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 95px rgba(81, 212, 201, 0.35);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-logo {
+      width: 72%;
+      max-width: 340px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 30px rgba(0,0,0,0.35));
+      transition: 0.35s ease;
+    }
+
+    .hero-logo:hover {
+      transform: scale(1.03);
+    }
+
+    .ball-inner {
+      width: 52%;
+      height: 52%;
+      border-radius: 50%;
+      border: 12px solid var(--wine);
+      position: relative;
+    }
+
+    .ball-inner::after {
+      content: "";
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      background: var(--wine);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .mini-grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      text-align: center;
+    }
+
+    .mini-grid div {
+      background: var(--wine);
+      padding: 15px 10px;
+      border-radius: 18px;
+      font-size: 14px;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin-bottom: 44px;
+    }
+
+    .section-title .small {
+      color: var(--mint);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: clamp(38px, 5vw, 68px);
+      line-height: 1.02;
+      letter-spacing: -3px;
+      font-weight: 950;
+    }
+
+    .section-title p,
+    .text p {
+      margin-top: 22px;
+      font-size: 18px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.76);
+    }
+
+    .brief {
+      background: var(--coffee);
+    }
+
+    .cards-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(56, 32, 29, 0.72);
+      border: 1px solid rgba(255,255,255,0.11);
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(81, 212, 201, 0.45);
+    }
+
+    .number {
+      color: var(--mint);
+      font-weight: 950;
+      font-size: 14px;
+    }
+
+    .card-label {
+      margin-top: 24px;
+      color: rgba(255,255,255,0.55);
+      font-size: 14px;
+    }
+
+    .card h3 {
+      margin-top: 8px;
+      font-size: 25px;
+      line-height: 1.15;
+    }
+
+    .card p {
+      margin-top: 16px;
+      color: rgba(255,255,255,0.66);
+      line-height: 1.65;
+    }
+
+    .products {
+      background: var(--wine);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .product-card {
+      padding: 28px;
+      border-radius: 30px;
+      background: var(--coffee);
+      border: 1px solid rgba(255,255,255,0.1);
+      min-height: 280px;
+      transition: 0.25s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: rgba(81, 212, 201, 0.14);
+      color: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 24px;
+    }
+
+    .product-card h3 {
+      font-size: 24px;
+      line-height: 1.18;
+    }
+
+    .product-card p {
+      margin-top: 16px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.66);
+    }
+
+    .position {
+      background: var(--sage);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .position .small {
+      color: var(--wine);
+    }
+
+    .list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .list-item {
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(56, 32, 29, 0.88);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .check {
+      color: var(--mint);
+      font-weight: 900;
+    }
+
+    .identity {
+      background: var(--wine);
+    }
+
+    .palette {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .swatch {
+      height: 86px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex;
+      align-items: flex-end;
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 900;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+    }
+
+    .market {
+      background: var(--brick);
+    }
+
+    .chips {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .chip {
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: rgba(56, 32, 29, 0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.86);
+    }
+
+    .final {
+      background: var(--wine);
+    }
+
+    .final-box {
+      padding: 64px 40px;
+      border-radius: 36px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--coffee), var(--brick));
+      border: 1px solid rgba(81, 212, 201, 0.22);
+    }
+
+    .final-icon {
+      font-size: 52px;
+      margin-bottom: 22px;
+    }
+
+    .final-box p {
+      margin: 24px auto 0;
+      max-width: 760px;
+      font-size: 21px;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.76);
+    }
+
+    footer {
+      background: var(--coffee);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 34px 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .orb-card {
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-4,
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .palette {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+
+      h1 {
+        letter-spacing: -4px;
+      }
+
+      .cards-4,
+      .product-grid,
+      .palette {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 84px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="#home" class="logo">ORB’S</a>
+      <div class="nav-links">
+        <a href="#brief">Brief</a>
+        <a href="#products">Ürünler</a>
+        <a href="#position">Konumlandırma</a>
+        <a href="#identity">Kimlik</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div>
+        <div class="tag">Sunum odaklı marka web sitesi</div>
+        <div class="eyebrow">Glow The Game</div>
+        <h1>ORB<span>’</span>S</h1>
+        <p>Karanlıkta parlayan golf topları ve entegre edilebilir golf ekipmanlarıyla golfü daha modern, sosyal ve eğlenceli bir deneyime dönüştüren marka.</p>
+        <div class="buttons">
+          <a href="#brief" class="btn-primary">Sunumu Başlat →</a>
+          <a href="#identity" class="btn-secondary">Marka Kimliği</a>
+        </div>
+      </div>
+
+      <div class="orb-card">
+        <div class="orb-ball">
+          
+          <!-- LOGO ALANI -->
+          <!-- Kendi logonu eklemek için aynı klasöre logo.png at -->
+          <img src="logo.png" alt="ORB'S Logo" class="hero-logo">
+
+        </div>
+        <div class="mini-grid">
+          <div>Glow Ball</div>
+          <div>Smart Club</div>
+          <div>Night Golf</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="brief" id="brief">
+    <div class="container">
+      <div class="section-title">
+        <div class="small">Sunum Özeti</div>
+        <h2>İstenen Başlıklara Göre Marka Planı</h2>
+      </div>
+
+      <div class="cards-4">
+        <div class="card">
+          <div class="number">01</div>
+          <div class="card-label">Marka İsmi</div>
+          <h3>ORB’S</h3>
+          <p>Kısa, akılda kalıcı ve yuvarlak golf topu formunu çağrıştıran modern marka adı.</p>
+        </div>
+        <div class="card">
+          <div class="number">02</div>
+          <div class="card-label">Sektör</div>
+          <h3>Eğlence ve Oyun</h3>
+          <p>Spor teknolojileri, golf ekipmanları ve eğlence odaklı oyun ürünleri alanında konumlanır.</p>
+        </div>
+        <div class="card">
+          <div class="number">03</div>
+          <div class="card-label">Ürünler</div>
+          <h3>Glow Golf Ürünleri</h3>
+          <p>Karanlıkta parlayan golf topları ve birbirine entegre edilebilir golf sopası sistemleri.</p>
+        </div>
+        <div class="card">
+          <div class="number">04</div>
+          <div class="card-label">Konumlandırma</div>
+          <h3>Modern Golf Deneyimi</h3>
+          <p>Golf oynanan ülkelerde özgün, oyunu kolaylaştıran ve eğlenceyi artıran ürünler sunar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-title">
+        <div class="small" style="color: var(--coral);">Satılacak Ürünlerin Listesi</div>
+        <h2>Golfü Kolaylaştıran ve Eğlenceli Hâle Getiren Ürünler</h2>
+        <p>ORB’S ürünleri golf oyununu daha görünür, taşınabilir, modern ve kullanıcı dostu hâle getirmek için tasarlanır.</p>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="icon">☾</div>
+          <h3>Karanlıkta Parlayan Golf Topları</h3>
+          <p>Gece golfü, sosyal etkinlikler ve eğlence amaçlı oyunlar için yüksek görünürlüklü özel golf topları.</p>
+        </div>
+        <div class="product-card">
+          <div class="icon">⚡</div>
+          <h3>LED Destekli Golf Topları</h3>
+          <p>Düşük ışıkta topun hareketini takip etmeyi kolaylaştıran, modern ve dikkat çekici oyun ekipmanı.</p>
+        </div>
+        <div class="product-card">
+          <div class="icon">⛳</div>
+          <h3>Entegre Edilebilir Golf Sopası</h3>
+          <p>Taşınabilir, pratik ve modüler yapısıyla golf deneyimini daha kolay hâle getiren sopa sistemi.</p>
+        </div>
+        <div class="product-card">
+          <div class="icon">◎</div>
+          <h3>Başlangıç Golf Setleri</h3>
+          <p>Golf sporuna yeni başlayan kullanıcılar için anlaşılır, kullanışlı ve eğlenceli ürün paketleri.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="position" id="position">
+    <div class="container two-col">
+      <div class="text">
+        <div class="section-title" style="margin-bottom: 0;">
+          <div class="small">Marka Konumlandırması</div>
+          <h2>Klasik Golf Algısından Modern Oyun Deneyimine</h2>
+          <p>ORB’S, golf sporunu sadece profesyonel oyunculara hitap eden klasik bir alan olmaktan çıkarıp daha erişilebilir, teknolojik ve eğlenceli bir deneyime dönüştürmeyi amaçlar.</p>
+          <p>Marka; golf oynanan ülkelerde gece oyunları, arkadaş grupları, etkinlik alanları, eğlence merkezleri ve yeni başlayan kullanıcılar için özgün ürünler sunar.</p>
+        </div>
+      </div>
+      <div class="list">
+        <div class="list-item"><span class="check">✓</span> Golf deneyimini modernleştirir.</div>
+        <div class="list-item"><span class="check">✓</span> Gece kullanımına uygun ürünler sunar.</div>
+        <div class="list-item"><span class="check">✓</span> Oyunu daha görünür, pratik ve keyifli hâle getirir.</div>
+        <div class="list-item"><span class="check">✓</span> Spor, eğlence ve teknolojiyi aynı marka çatısı altında toplar.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="identity" id="identity">
+    <div class="container two-col">
+      <div class="text">
+        <div class="section-title" style="margin-bottom: 0;">
+          <div class="small">Marka Kimliği</div>
+          <h2>ORB’S Nasıl Görünür ve Nasıl Hissettirir?</h2>
+          <p>ORB’S markasının kimliği; karanlıkta parlayan görsel etki, modern oyun kültürü, teknolojik ürün algısı ve sosyal kullanım tarzı üzerine kuruludur. Marka dili sade, güçlü ve akılda kalıcıdır.</p>
+       
+      </div>
+      <div class="list">
+        <div class="list-item"><span class="check">✦</span> Modern ve dikkat çekici görsel dil</div>
+        <div class="list-item"><span class="check">✦</span> Karanlıkta parlayan ürün algısı</div>
+        <div class="list-item"><span class="check">✦</span> Premium ama ulaşılabilir marka imajı</div>
+        <div class="list-item"><span class="check">✦</span> Genç, sosyal ve dinamik hedef kitle</div>
+        <div class="list-item"><span class="check">✦</span> Golfü daha kolay, eğlenceli ve özgün hâle getiren yaklaşım</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="market">
+    <div class="container">
+      <div class="section-title">
+        <div class="small">Hedef Kitle ve Pazar</div>
+        <h2>Golfün Yaygın Olduğu Ülkelerde Özgün Ürünler</h2>
+        <p>ORB’S; golf oynayan ülkelerdeki genç kullanıcıları, eğlence merkezlerini, golf kulüplerini, etkinlik organizasyonlarını ve başlangıç seviyesindeki oyuncuları hedefler.</p>
+      </div>
+      <div class="chips">
+        <div class="chip">ABD</div>
+        <div class="chip">Birleşik Krallık</div>
+        <div class="chip">Japonya</div>
+        <div class="chip">Güney Kore</div>
+        <div class="chip">Avustralya</div>
+        <div class="chip">Kanada</div>
+        <div class="chip">Almanya</div>
+        <div class="chip">İspanya</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="container">
+      <div class="final-box">
+        <div class="final-icon">🎮</div>
+        <h2>Golf artık sadece gündüz oynanan klasik bir spor değil.</h2>
+        <p>ORB’S, golfü ışıkla, teknolojiyle ve eğlenceyle birleştirerek yeni nesil bir oyun deneyimi sunar.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 ORB’S — Glow The Game
+  </footer>
+</body>
+</html>
